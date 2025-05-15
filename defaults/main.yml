@@ -22,6 +22,7 @@ cloud_vm_packages:
   - curl
   - unzip
   - python3-pip
+  - emacs
 
 cloud_vm_cmds:
   - /usr/local/bin/start-qga.sh
