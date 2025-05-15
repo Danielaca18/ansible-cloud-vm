@@ -5,6 +5,7 @@
 - import_tasks: get_vmid.yml
 - import_tasks: create_vm.yml
 - import_tasks: import_disk.yml
+- import_tasks: render_template.yml
 - import_tasks: configure_vm.yml
 - import_tasks: start_vm.yml
 - import_tasks: get_vm_ip.yml
