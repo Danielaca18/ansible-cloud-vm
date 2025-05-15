@@ -1,0 +1,5 @@
+- name: Render user-data template
+  template:
+    src: user-data.j2
+    dest: /tmp/user-data
+  delegate_to: localhost
