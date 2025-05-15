@@ -38,12 +38,13 @@ The cloud vm image name and url are required to download the image. The storage 
 
 ```yaml
 
+hostname: {{ inventory_hostname }}
 timezone: America/Edmonton
 locale: en-US
 keyboard_layout: us
 
 ```
-The timezone, locale and keyboard layout are used to set the timezone, locale and keyboard layout for the vm.
+The hostname, timezone, locale and keyboard layout are used to set the hostname, timezone, locale and keyboard layout for the vm.
 
 ```yaml
 
@@ -54,10 +55,9 @@ cloud_vm_pass: password
 The cloud vm user and password are used to set the username and password for the vm.
 
 ```yaml
-ssh_authorized_keys:
-  - ssh-rsa key user@host
+ssh_authorized_keys: []
 ```
-The ssh authorized keys are used to set the ssh keys for the vm.
+The ssh authorized keys are used to set the ssh keys for the vm. In the form ssh-rsa key user@email
 
 ```yaml
 
