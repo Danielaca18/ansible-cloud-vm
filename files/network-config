@@ -1,0 +1,8 @@
+version: 2
+ethernets:
+  ens18:
+    dhcp4: true
+    renderer: networkd
+    dhcp4-overrides:
+      send-hostname: true
+      hostname: "yeg01"

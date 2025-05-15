@@ -1,0 +1,6 @@
+---
+#
+- name: Start the VM
+  ansible.builtin.command: qm start {{ vmid }}
+  delegate_to: "{{ inventory_hostname }}"
+  changed_when: true

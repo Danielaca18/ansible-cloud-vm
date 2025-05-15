@@ -1,0 +1,16 @@
+---
+#
+- name: Assert required vars are defined
+  assert:
+    that:
+      - proxmox_token_id != ''
+      - proxmox_token != ''
+      - proxmox_user != ''
+      - ansible_host != ''
+    fail_msg: |
+      Required variables are missing:
+        - proxmox_user
+        - proxmox_token_id
+        - proxmox_token
+        - ansible_host
+      Please set these via environment, inventory, or extra-vars.

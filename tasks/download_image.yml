@@ -1,0 +1,7 @@
+---
+#
+- name: Download Ubuntu Cloud Image
+  ansible.builtin.get_url:
+    url: "{{ cloud_vm_image_url }}"
+    dest: "/tmp/{{ cloud_vm_image_name }}"
+    mode: "0644"

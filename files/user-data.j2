@@ -1,0 +1,49 @@
+#cloud-config
+hostname: {{ hostname }}
+timezone: {{ timezone }}
+locale: {{ locale }}
+keyboard:
+  layout: {{ keyboard layout }}
+
+user: {{ vm_user }}
+password: {{ cloud_vm_pass }}
+
+chpasswd:
+  expire: false
+
+{% if cloud_vm_ssh_keys %}
+ssh_authorized_keys:
+{% for key in cloud_vm_ssh_keys %}
+    - {{ key }}
+{% endfor %}
+{% endif %}
+
+sudo: ALL=(ALL) NOPASSWD:ALL
+
+package_update: true
+{% if cloud_vm_packages %}
+packages:
+{% for package in cloud_vm_packages %}
+    - {{ package }}
+{% endfor %}
+{% endif %}
+
+# Waits until qemu-guest-agent service can be enabled
+write_files:
+  - path: /usr/local/bin/start-qga.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      echo "[INFO] Starting QEMU Guest Agent..."
+      until systemctl enable qemu-guest-agent && systemctl start qemu-guest-agent; do
+        echo "[WARN] Retry qemu-guest-agent start..."
+        sleep 2
+      done
+      echo "[OK] qemu-guest-agent started."
+
+{% if cloud_vm_cmds %}
+runcmd:
+{% for cmd in cloud_vm_cmds %}
+    - {{ cmd }}
+{% endfor %}
+{% endif %}

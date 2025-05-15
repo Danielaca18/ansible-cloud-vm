@@ -1,0 +1,14 @@
+# Ansible
+*.retry
+*.log
+*.pyc
+__pycache__/
+*.swp
+*.swo
+*.orig
+
+# Editor junk
+.vscode/
+.idea/
+.DS_Store
+.env

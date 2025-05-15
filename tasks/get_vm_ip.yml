@@ -1,0 +1,32 @@
+---
+#
+- name: Wait for IP from guest agent
+  command: qm guest cmd {{ vmid }} network-get-interfaces
+  register: vm_network_info
+  until: >
+    vm_network_info.stdout | length > 0 and
+    (
+      vm_network_info.stdout | from_json | default([])
+      | selectattr('name', 'equalto', 'ens18')
+      | map(attribute='ip-addresses') | first | default([])
+      | selectattr('ip-address-type', 'equalto', 'ipv4')
+      | map(attribute='ip-address') | first | default('')
+    ) | length > 0
+  retries: 15
+  delay: 2
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Extract IP
+  set_fact:
+    vm_ip: >-
+      {{
+        vm_network_info.stdout | from_json
+        | selectattr('name', 'equalto', 'ens18')
+        | map(attribute='ip-addresses') | first | default([])
+        | selectattr('ip-address-type', 'equalto', 'ipv4')
+        | map(attribute='ip-address') | first
+      }}
+
+- name: Show VM IP
+  debug:
+    msg: "VM IP address is {{ vm_ip }}"

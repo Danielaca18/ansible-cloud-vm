@@ -1,0 +1,19 @@
+---
+#
+- name: Import disk image into Proxmox
+  ansible.builtin.command: >
+    qm importdisk {{ vmid }} /tmp/{{ cloud_vm_image_name }} {{ cloud_vm_storage_pool }} --format qcow2
+  delegate_to: "{{ inventory_hostname }}"
+  changed_when: true
+
+- name: Attach disk to VM
+  ansible.builtin.command: >
+    qm set {{ vmid }} --scsi0 {{ cloud_vm_storage_pool }}:vm-{{ vmid }}-disk-0 --boot order=scsi0 --bootdisk scsi0
+  delegate_to: "{{ inventory_hostname }}"
+  changed_when: true
+
+- name: Resize the imported disk
+  ansible.builtin.command: >
+    qm resize {{ vmid }} scsi0 {{ cloud_vm_storage_size }}
+  delegate_to: "{{ inventory_hostname }}"
+  changed_when: true

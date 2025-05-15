@@ -1,0 +1,19 @@
+---
+#
+- name: Upload user-data to Proxmox
+  copy:
+    src: "{{ playbook_dir }}/../roles/cloud_vm/files/user-data"
+    dest: "/var/lib/vz/snippets/user-{{ vmid }}.yaml"
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Upload network-config to Proxmox
+  copy:
+    src: "{{ playbook_dir }}/../roles/cloud_vm/files/network-config"
+    dest: "/var/lib/vz/snippets/network-{{ vmid }}.yaml"
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Attach cloud-init config to VM
+  command: >
+    qm set {{ vmid }}
+    --cicustom "user=local:snippets/user-{{ vmid }}.yaml,network=local:snippets/network-{{ vmid }}.yaml"
+  delegate_to: "{{ inventory_hostname }}"

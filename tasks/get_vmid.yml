@@ -1,0 +1,10 @@
+---
+#
+- name: Get next available VMID
+  ansible.builtin.command: /usr/bin/pvesh get /cluster/nextid
+  register: nextid_result
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Trim and set vmid
+  ansible.builtin.set_fact:
+    vmid: "{{ nextid_result.stdout | trim }}"

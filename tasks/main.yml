@@ -1,0 +1,10 @@
+---
+# tasks file for ansible_cloud_vm
+- import_tasks: assert_vars.yml
+- import_tasks: download_image.yml
+- import_tasks: get_vmid.yml
+- import_tasks: create_vm.yml
+- import_tasks: import_disk.yml
+- import_tasks: configure_vm.yml
+- import_tasks: start_vm.yml
+- import_tasks: get_vm_ip.yml

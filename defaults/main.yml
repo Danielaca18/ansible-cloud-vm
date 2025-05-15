@@ -1,0 +1,27 @@
+---
+# defaults file for ansible_cloud_vm
+pve_node: "pve"
+
+# cloud_vm_image_name: jammy-server-cloudimg-amd64.img
+cloud_vm_image_name: noble-server-clouding-amd64.img
+cloud_vm_image_url: "https://cloud-images.ubuntu.com/jammy/current/{{ cloud_vm_image_name }}"
+cloud_vm_storage_pool: pve1
+cloud_vm_storage_size: 150G
+
+timezone: America/Edmonton
+locale: en-US
+keyboard_layout: us
+
+cloud_vm_user: ubuntu
+cloud_vm_pass: password
+
+cloud_vm_packages:
+  - qemu-guest-agent
+  - git
+  - htop
+  - curl
+  - unzip
+  - python3-pip
+
+cloud_vm_cmds:
+  - /usr/local/bin/start-qga.sh
