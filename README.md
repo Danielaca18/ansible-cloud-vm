@@ -1,7 +1,7 @@
 Ansible Cloud VM
 =========
 
-An Ansible Role to create an ubuntu cloud vm on proxmox.
+An Ansible Role to create an Ubuntu Cloud VM on Proxmox.
 
 [![Ansible Role](https://img.shields.io/badge/ansible--galaxy-ansible--role-blue.svg)](https://galaxy.ansible.com/)
 
