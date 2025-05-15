@@ -2,13 +2,14 @@
 #
 - name: Upload user-data to Proxmox
   copy:
-    src: "{{ playbook_dir }}/../roles/cloud_vm/files/user-data"
+    src: /tmp/user-data
     dest: "/var/lib/vz/snippets/user-{{ vmid }}.yaml"
+    remote_src: no
   delegate_to: "{{ inventory_hostname }}"
 
 - name: Upload network-config to Proxmox
   copy:
-    src: "{{ playbook_dir }}/../roles/cloud_vm/files/network-config"
+    src: network-config
     dest: "/var/lib/vz/snippets/network-{{ vmid }}.yaml"
   delegate_to: "{{ inventory_hostname }}"
 
